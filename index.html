@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Window A</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .container {
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 20px;
+        }
+        select {
+            width: 100%;
+            font-size: 16px;
+            padding: 8px;
+        }
+        select[size] {
+            height: 250px;
+        }
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 500px;
+        }
+        button {
+            padding: 8px 16px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .radio-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+            max-width: 500px;
+        }
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            width: 100%;
+            max-width: 500px;
+        }
+        li {
+            padding: 8px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+        }
+        li:hover {
+            background-color: #f5f5f5;
+        }
+        li.selected {
+            font-weight: bold;
+        }
+        #debug-output {
+            width: 100%;
+            max-width: 500px;
+            height: 150px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            font-family: monospace;
+            margin-top: 20px;
+            background-color: #f5f5f5;
+            font-size: 12px;
+        }
+        .window-type {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="window-title">Window A</h1>
+    
+    <!-- Window Open Buttons - only shown in Window A -->
+    <div class="button-container" id="window-buttons">
+        <button id="open-window-b">Open Window B</button>
+        <button id="open-window-c">Open Window C</button>
+        <button id="open-window-d">Open Window D</button>
+    </div>
+    
+    <!-- Window A Content: Multi-select list box -->
+    <div class="window-type" id="window-a-content">
+        <div class="container">
+            <select id="list-select" size="10">
+                <option value="One">One</option>
+                <option value="Two">Two</option>
+                <option value="Three">Three</option>
+                <option value="Four">Four</option>
+                <option value="Five">Five</option>
+                <option value="Six">Six</option>
+                <option value="Seven">Seven</option>
+                <option value="Eight">Eight</option>
+                <option value="Nine">Nine</option>
+                <option value="Ten">Ten</option>
+            </select>
+        </div>
+    </div>
+    
+    <!-- Window B Content: Dropdown select -->
+    <div class="window-type" id="window-b-content">
+        <div class="container">
+            <select id="dropdown-select">
+                <option value="" disabled selected>Select an option</option>
+                <option value="One">One</option>
+                <option value="Two">Two</option>
+                <option value="Three">Three</option>
+                <option value="Four">Four</option>
+                <option value="Five">Five</option>
+                <option value="Six">Six</option>
+                <option value="Seven">Seven</option>
+                <option value="Eight">Eight</option>
+                <option value="Nine">Nine</option>
+                <option value="Ten">Ten</option>
+            </select>
+        </div>
+    </div>
+    
+    <!-- Window C Content: Radio buttons -->
+    <div class="window-type" id="window-c-content">
+        <div class="radio-container" id="radio-container">
+            <div class="radio-option">
+                <input type="radio" id="radio-One" name="option" value="One">
+                <label for="radio-One">One</label>
+            </div>
+            <div class="radio-option">
+                <input type="radio" id="radio-Two" name="option" value="Two">
+                <label for="radio-Two">Two</label>
+            </div>
+            <div class="radio-option">
+                <input type="radio" id="radio-Three" name="option" value="Three">
+                <label for="radio-Three">Three</label>
+            </div>
+            <div class="radio-option">
+                <input type="radio" id="radio-Four" name="option" value="Four">
+                <label for="radio-Four">Four</label>
+            </div>
+            <div class="radio-option">
+                <input type="radio" id="radio-Five" name="option" value="Five">
+                <label for="radio-Five">Five</label>
+            </div>
+            <div class="radio-option">
+                <input type="radio" id="radio-Six" name="option" value="Six">
+                <label for="radio-Six">Six</label>
+            </div>
+            <div class="radio-option">
+                <input type="radio" id="radio-Seven" name="option" value="Seven">
+                <label for="radio-Seven">Seven</label>
+            </div>
+            <div class="radio-option">
+                <input type="radio" id="radio-Eight" name="option" value="Eight">
+                <label for="radio-Eight">Eight</label>
+            </div>
+            <div class="radio-option">
+                <input type="radio" id="radio-Nine" name="option" value="Nine">
+                <label for="radio-Nine">Nine</label>
+            </div>
+            <div class="radio-option">
+                <input type="radio" id="radio-Ten" name="option" value="Ten">
+                <label for="radio-Ten">Ten</label>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Window D Content: List items -->
+    <div class="window-type" id="window-d-content">
+        <ul id="list-container">
+            <li data-value="One">One</li>
+            <li data-value="Two">Two</li>
+            <li data-value="Three">Three</li>
+            <li data-value="Four">Four</li>
+            <li data-value="Five">Five</li>
+            <li data-value="Six">Six</li>
+            <li data-value="Seven">Seven</li>
+            <li data-value="Eight">Eight</li>
+            <li data-value="Nine">Nine</li>
+            <li data-value="Ten">Ten</li>
+        </ul>
+    </div>
+    
+    <div id="debug-output"></div>
+
+    <script>
+        // Configuration
+        const ALLOWED_ORIGIN = window.location.origin;
+        const WINDOW_TYPES = ['A', 'B', 'C', 'D'];
+        
+        // State variables
+        let windowRefs = {
+            B: null,
+            C: null,
+            D: null
+        };
+        let isProcessingRemoteChange = false;
+        
+        // Determine which window we are
+        let currentWindowType = 'A'; // Default
+        
+        if (window.name === 'WindowB') currentWindowType = 'B';
+        if (window.name === 'WindowC') currentWindowType = 'C';
+        if (window.name === 'WindowD') currentWindowType = 'D';
+        
+        // Debug function
+        function debugLog(message) {
+            console.log(message);
+            const debugOutput = document.getElementById('debug-output');
+            const timestamp = new Date().toLocaleTimeString();
+            debugOutput.innerHTML += `[${timestamp}] ${message}<br>`;
+            debugOutput.scrollTop = debugOutput.scrollHeight;
+        }
+        
+        // Set the window title and show appropriate content
+        document.getElementById("window-title").textContent = "Window " + currentWindowType;
+        document.title = "Window " + currentWindowType;
+        
+        // Hide window buttons for non-A windows
+        if (currentWindowType !== 'A') {
+            document.getElementById("window-buttons").style.display = "none";
+        }
+        
+        // Show correct content for this window type
+        document.getElementById(`window-${currentWindowType.toLowerCase()}-content`).style.display = "block";
+        
+        // Get references to UI elements
+        const listSelect = document.getElementById("list-select");
+        const dropdownSelect = document.getElementById("dropdown-select");
+        const radioButtons = document.querySelectorAll('input[type="radio"][name="option"]');
+        const listItems = document.querySelectorAll('#list-container li');
+        
+        // Open window buttons
+        if (currentWindowType === 'A') {
+            document.getElementById("open-window-b").addEventListener("click", () => {
+                windowRefs.B = window.open(window.location.href, "WindowB", "width=500,height=600");
+                if (windowRefs.B) {
+                    debugLog("Window B opened");
+                    // Wait for window to initialize then send current selection
+                    setTimeout(() => sendCurrentSelection(), 1000);
+                } else {
+                    debugLog("Failed to open Window B");
+                }
+            });
+            
+            document.getElementById("open-window-c").addEventListener("click", () => {
+                windowRefs.C = window.open(window.location.href, "WindowC", "width=500,height=600");
+                if (windowRefs.C) {
+                    debugLog("Window C opened");
+                    // Wait for window to initialize then send current selection
+                    setTimeout(() => sendCurrentSelection(), 1000);
+                } else {
+                    debugLog("Failed to open Window C");
+                }
+            });
+            
+            document.getElementById("open-window-d").addEventListener("click", () => {
+                windowRefs.D = window.open(window.location.href, "WindowD", "width=500,height=600");
+                if (windowRefs.D) {
+                    debugLog("Window D opened");
+                    // Wait for window to initialize then send current selection
+                    setTimeout(() => sendCurrentSelection(), 1000);
+                } else {
+                    debugLog("Failed to open Window D");
+                }
+            });
+        }
+        
+        // Event listeners for each UI component
+        
+        // Window A: List box
+        if (currentWindowType === 'A') {
+            listSelect.addEventListener("change", () => {
+                if (isProcessingRemoteChange) return;
+                
+                const selectedIndex = listSelect.selectedIndex;
+                if (selectedIndex !== -1) {
+                    const selectedValue = listSelect.options[selectedIndex].value;
+                    debugLog(`Selected option: ${selectedValue}`);
+                    broadcastSelection(selectedValue);
+                }
+            });
+        }
+        
+        // Window B: Dropdown
+        if (currentWindowType === 'B') {
+            dropdownSelect.addEventListener("change", () => {
+                if (isProcessingRemoteChange) return;
+                
+                const selectedValue = dropdownSelect.value;
+                if (selectedValue) {
+                    debugLog(`Selected option: ${selectedValue}`);
+                    broadcastSelection(selectedValue);
+                }
+            });
+        }
+        
+        // Window C: Radio buttons
+        if (currentWindowType === 'C') {
+            radioButtons.forEach(radio => {
+                radio.addEventListener("change", () => {
+                    if (isProcessingRemoteChange) return;
+                    
+                    if (radio.checked) {
+                        const selectedValue = radio.value;
+                        debugLog(`Selected option: ${selectedValue}`);
+                        broadcastSelection(selectedValue);
+                    }
+                });
+            });
+        }
+        
+        // Window D: List items
+        if (currentWindowType === 'D') {
+            listItems.forEach(item => {
+                item.addEventListener("click", () => {
+                    if (isProcessingRemoteChange) return;
+                    
+                    // Remove selected class from all items
+                    listItems.forEach(li => li.classList.remove('selected'));
+                    
+                    // Add selected class to clicked item
+                    item.classList.add('selected');
+                    
+                    const selectedValue = item.getAttribute('data-value');
+                    debugLog(`Selected option: ${selectedValue}`);
+                    broadcastSelection(selectedValue);
+                });
+            });
+        }
+        
+        // Function to update the UI based on a selected value
+        function updateUISelection(value) {
+            isProcessingRemoteChange = true;
+            
+            try {
+                // Window A: Update list box
+                if (currentWindowType === 'A') {
+                    for (let i = 0; i < listSelect.options.length; i++) {
+                        if (listSelect.options[i].value === value) {
+                            listSelect.selectedIndex = i;
+                            break;
+                        }
+                    }
+                }
+                
+                // Window B: Update dropdown
+                if (currentWindowType === 'B') {
+                    dropdownSelect.value = value;
+                }
+                
+                // Window C: Update radio buttons
+                if (currentWindowType === 'C') {
+                    radioButtons.forEach(radio => {
+                        radio.checked = (radio.value === value);
+                    });
+                }
+                
+                // Window D: Update list items
+                if (currentWindowType === 'D') {
+                    listItems.forEach(item => {
+                        if (item.getAttribute('data-value') === value) {
+                            item.classList.add('selected');
+                        } else {
+                            item.classList.remove('selected');
+                        }
+                    });
+                }
+                
+                debugLog(`Updated UI selection to: ${value}`);
+            } catch (error) {
+                debugLog(`Error updating UI: ${error.message}`);
+            }
+            
+            // Reset flag
+            setTimeout(() => {
+                isProcessingRemoteChange = false;
+            }, 100);
+        }
+        
+        // Function to broadcast the selection to all open windows
+        function broadcastSelection(value) {
+            const message = {
+                type: "selection-update",
+                value: value,
+                source: currentWindowType
+            };
+            
+            // Send to parent window if we're not Window A
+            if (currentWindowType !== 'A' && window.opener) {
+                try {
+                    window.opener.postMessage(message, ALLOWED_ORIGIN);
+                    debugLog(`Sent selection to Window A: ${value}`);
+                } catch (error) {
+                    debugLog(`Error sending to Window A: ${error.message}`);
+                }
+            }
+            
+            // If we're Window A, send to all child windows
+            if (currentWindowType === 'A') {
+                // Send to Window B
+                if (windowRefs.B && !windowRefs.B.closed) {
+                    try {
+                        windowRefs.B.postMessage(message, ALLOWED_ORIGIN);
+                        debugLog(`Sent selection to Window B: ${value}`);
+                    } catch (error) {
+                        debugLog(`Error sending to Window B: ${error.message}`);
+                    }
+                }
+                
+                // Send to Window C
+                if (windowRefs.C && !windowRefs.C.closed) {
+                    try {
+                        windowRefs.C.postMessage(message, ALLOWED_ORIGIN);
+                        debugLog(`Sent selection to Window C: ${value}`);
+                    } catch (error) {
+                        debugLog(`Error sending to Window C: ${error.message}`);
+                    }
+                }
+                
+                // Send to Window D
+                if (windowRefs.D && !windowRefs.D.closed) {
+                    try {
+                        windowRefs.D.postMessage(message, ALLOWED_ORIGIN);
+                        debugLog(`Sent selection to Window D: ${value}`);
+                    } catch (error) {
+                        debugLog(`Error sending to Window D: ${error.message}`);
+                    }
+                }
+            }
+        }
+        
+        // Function to send current selection to new windows
+        function sendCurrentSelection() {
+            let currentValue = null;
+            
+            // Get current selection from Window A
+            if (currentWindowType === 'A') {
+                if (listSelect.selectedIndex !== -1) {
+                    currentValue = listSelect.options[listSelect.selectedIndex].value;
+                }
+            }
+            
+            // If we have a selection, broadcast it
+            if (currentValue) {
+                debugLog(`Sending current selection to new windows: ${currentValue}`);
+                broadcastSelection(currentValue);
+            }
+        }
+        
+        // Message listener for all windows
+        window.addEventListener("message", (event) => {
+            // Validate origin
+            if (event.origin !== ALLOWED_ORIGIN) {
+                debugLog(`Received message from unauthorized origin: ${event.origin}`);
+                return;
+            }
+            
+            // Process message
+            if (event.data && event.data.type === "selection-update") {
+                const sourceWindow = event.data.source;
+                const selectedValue = event.data.value;
+                
+                debugLog(`Received selection update from Window ${sourceWindow}: ${selectedValue}`);
+                
+                // Update our UI
+                updateUISelection(selectedValue);
+                
+                // If we're Window A, forward to other windows (except source)
+                if (currentWindowType === 'A' && sourceWindow !== 'A') {
+                    // Send to Window B
+                    if (sourceWindow !== 'B' && windowRefs.B && !windowRefs.B.closed) {
+                        try {
+                            windowRefs.B.postMessage(event.data, ALLOWED_ORIGIN);
+                            debugLog(`Forwarded selection to Window B: ${selectedValue}`);
+                        } catch (error) {
+                            debugLog(`Error forwarding to Window B: ${error.message}`);
+                        }
+                    }
+                    
+                    // Send to Window C
+                    if (sourceWindow !== 'C' && windowRefs.C && !windowRefs.C.closed) {
+                        try {
+                            windowRefs.C.postMessage(event.data, ALLOWED_ORIGIN);
+                            debugLog(`Forwarded selection to Window C: ${selectedValue}`);
+                        } catch (error) {
+                            debugLog(`Error forwarding to Window C: ${error.message}`);
+                        }
+                    }
+                    
+                    // Send to Window D
+                    if (sourceWindow !== 'D' && windowRefs.D && !windowRefs.D.closed) {
+                        try {
+                            windowRefs.D.postMessage(event.data, ALLOWED_ORIGIN);
+                            debugLog(`Forwarded selection to Window D: ${selectedValue}`);
+                        } catch (error) {
+                            debugLog(`Error forwarding to Window D: ${error.message}`);
+                        }
+                    }
+                }
+            } else if (event.data && event.data.type === "ready") {
+                // Handle ready messages from child windows
+                const sourceWindow = event.data.source;
+                debugLog(`Received ready notification from Window ${sourceWindow}`);
+                
+                // Send current selection if any
+                sendCurrentSelection();
+            }
+        });
+        
+        // Send ready notification to Window A if we're a child window
+        if (currentWindowType !== 'A' && window.opener) {
+            setTimeout(() => {
+                try {
+                    window.opener.postMessage({
+                        type: "ready",
+                        source: currentWindowType
+                    }, ALLOWED_ORIGIN);
+                    debugLog(`Sent ready notification to Window A`);
+                } catch (error) {
+                    debugLog(`Error sending ready notification: ${error.message}`);
+                }
+            }, 500);
+        }
+        
+        // Window close handler
+        window.addEventListener("beforeunload", () => {
+            // If we're Window A, clear references to closed windows
+            if (currentWindowType === 'A') {
+                if (windowRefs.B && windowRefs.B.closed) windowRefs.B = null;
+                if (windowRefs.C && windowRefs.C.closed) windowRefs.C = null;
+                if (windowRefs.D && windowRefs.D.closed) windowRefs.D = null;
+            }
+        });
+        
+        debugLog(`Window ${currentWindowType} initialized`);
+    </script>
+</body>
+</html>
